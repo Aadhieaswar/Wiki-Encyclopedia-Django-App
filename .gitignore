@@ -6,3 +6,6 @@ venv/
 
 # vim local config files
 .vim/
+
+# entries
+entries/
