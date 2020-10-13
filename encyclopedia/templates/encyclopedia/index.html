@@ -1,0 +1,84 @@
+{% extends "encyclopedia/layout.html" %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}
+{% if entry %}
+  {{ entry }}
+{% else %}
+  Dashboard
+{% endif %}
+
+{% endblock %}
+
+<!-- Nav-Left Content -->
+{% block nav %}
+<form class="search-bar" method="POST" action="{% url 'encyclopedia:search' %}" autocomplete="off">
+  {% csrf_token %}
+  <input class="search-input" placeholder="Search Entries" name="key" maxlength="10" autofocus>
+  <button class="search-button" type="submit">Search</button>
+</form>
+
+{% endblock %}
+
+<!-- Body Content -->
+{% block body %}
+<div class="home-content">
+  <a class="dash-link" href="{% url 'encyclopedia:home' %}">Dashboard</a>
+  <h4 class="box-title">Public Pages</h4>
+  <ul class="page-list">
+    {% for entry in entries %}
+    <li>
+      <a class="entry-link" href="{% url 'encyclopedia:wiki' entry %}">{{ entry }}</a>
+    </li>
+    {% empty %}
+    <li>None available at the moment</li>
+    {% endfor %}
+  </ul>
+  <a class="dash-link create-link" href="{% url 'encyclopedia:new_entry' %}">Create New Entry</a>
+</div>
+
+<div class="space-top"></div>
+
+<!-- Content To display as homepage -->
+{% if not content %}
+<h3 class="entry-title">Dashboard</h3>
+<div class="entry-content">
+  <h3>Welcome to the Markdown Way of Life</h3>
+  <p>
+    <em>Create and view Markdown files that can be saved, and modified anytime and anywhere Using <strong>Wiki Entries</strong></em>
+    <br><br>
+    <strong>Features:</strong>
+    <ul class="feature-list">
+      <li>
+        Search for any files available using our optimized search bar
+        <br>
+        <img class="search-img" src="{% static 'images/search-bar.png' %}">
+      </li>
+      <li>
+        Click on the <img class="btn-img" src="{% static 'images/create-new-entry.png' %}"> to add a new Markdown entry
+        <br>
+      </li>
+      <li>
+        Edit already existing Markdown entries
+        <br>
+        <img class="edit-img" src="{% static 'images/edit-button.png' %}">
+      </li>
+    </ul>
+  </p>
+</div>
+{% endif %}
+
+<!-- Content To display for entries -->
+{% if content %}
+<h3 class="entry-title"><em class="underline">{{ entry }}</em></h3>
+<div class="entry-content">
+    {{ content | safe }}
+</div>
+{% endif %}
+
+{% if entry %}
+<a class="edit-link" href="{% url 'encyclopedia:editor' entry %}">Edit</a>
+{% endif %}
+
+{% endblock %}

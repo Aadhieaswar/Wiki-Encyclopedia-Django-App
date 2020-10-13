@@ -1,0 +1,40 @@
+{% extends "encyclopedia/layout.html" %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}
+Wiki Home
+
+{% endblock %}
+
+<!-- Nav-Left Content -->
+{% block nav %}
+<a class="dash-link-results" href="{% url 'encyclopedia:home' %}">Dashboard</a>
+<form class="search-bar" method="POST" action="{% url 'encyclopedia:search' %}" autocomplete="off">
+  {% csrf_token %}
+  <input class="search-input" placeholder="Search Entries" name="key" maxlength="10" autofocus>
+  <button class="search-button" type="submit">Search</button>
+</form>
+
+{% endblock %}
+
+<!-- Body Content -->
+{% block body %}
+<!-- Content To display search results -->
+<div class="space-top"></div>
+
+<ul class="results-list">
+  <h3 class="results-message">
+    {{ message | safe }}
+  </h3>
+    {% for entry in results %}
+    <li>
+      <a class="results-link" href="{% url 'encyclopedia:wiki' entry %}">{{ entry }}</a>
+    </li>
+    {% empty %}
+    <li style="list-style-type: none; width: 530px; text-align: center;">ERROR: 404 NOT FOUND</li>
+    {% endfor %}
+  <div class="results-key">For search parameter: ' <em>{{ key }}</em> '</div>
+</ul>
+
+{% endblock %}

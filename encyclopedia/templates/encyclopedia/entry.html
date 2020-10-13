@@ -1,0 +1,53 @@
+{% extends "encyclopedia/layout.html" %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}
+Create Your Own Entry
+
+{% endblock %}
+
+<!-- Nav-Left Content -->
+{% block nav %}
+<a class="dash-link-results" href="{% url 'encyclopedia:home' %}">Dashboard</a>
+<form class="search-bar" method="POST" action="{% url 'encyclopedia:search' %}" autocomplete="off">
+  {% csrf_token %}
+  <input class="search-input" placeholder="Search Entries" name="key" maxlength="10" autofocus>
+  <button class="search-button" type="submit">Search</button>
+</form>
+
+{% endblock %}
+
+<!-- Body Content -->
+{% block body %}
+<div class="home-content">
+  <h2 class="title-1">Create Your Own <br> Wiki Entry!</h2>
+  <h4 class="title-2">Enjoy The World of Markdown</h4>
+</div>
+
+<!-- Content To display to create new entry -->
+<div class="space-top"></div>
+
+<form class="create-form" action="{% url 'encyclopedia:new_entry' %}" method="POST" autocomplete="off">
+  {% csrf_token %}
+  <div class="md-title">
+    <p>
+      Title of New Entry
+    </p>
+    {{ form.title }}
+  </div>
+  {% if err_msg %}
+  <p class="err-msg">
+    ⚠ {{ err_msg }}
+  </p>
+  {% endif %}
+  <div class="md-content">
+    <p>
+      Entry Content
+    </p>
+    {{ form.content }}
+  </div>
+  <button class="create-submit" type="submit">Submit</button>
+</form>
+
+{% endblock %}

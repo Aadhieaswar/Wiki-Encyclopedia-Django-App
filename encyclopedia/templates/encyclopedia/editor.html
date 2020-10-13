@@ -1,0 +1,44 @@
+{% extends "encyclopedia/layout.html" %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}
+Editing {{ entry }}
+
+{% endblock %}
+
+<!-- Nav-Left Content -->
+{% block nav %}
+<a class="dash-link-results" href="{% url 'encyclopedia:home' %}">Dashboard</a>
+<form class="search-bar" method="POST" action="{% url 'encyclopedia:search' %}" autocomplete="off">
+  {% csrf_token %}
+  <input class="search-input" placeholder="Search Entries" name="key" maxlength="10" autofocus>
+  <button class="search-button" type="submit">Search</button>
+</form>
+
+{% endblock %}
+
+<!-- Body Content -->
+{% block body %}
+<div class="home-content">
+  <h2 class="title-1">You are Now Editing <br> <em class="em-title">{{ entry }}</em></h2>
+  {% if success %}
+  <h3 class="success-msg">
+    {{ success }}
+  </h3>
+  {% endif %}
+</div>
+
+<!-- Content To display to create new entry -->
+<div class="space-top"></div>
+
+<form class="edit-form" method="POST" action="{% url 'encyclopedia:editor' entry %}">
+  <h1 class="entry-title">
+    <em class="underline" style="border-bottom: 1px solid var(--primary);">{{ entry }}</em>
+  </h1>
+  {% csrf_token %}
+  <textarea class="edit-content" rows="21" cols="65" name="new_content">{{ content | safe }}</textarea>
+  <button type="submit">Save Changes</button>
+</form>
+
+{% endblock %}

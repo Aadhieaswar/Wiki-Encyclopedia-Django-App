@@ -1,0 +1,8 @@
+# pycache folder
+__pycache__
+
+# python virtual environment
+venv/
+
+# vim local config files
+.vim/

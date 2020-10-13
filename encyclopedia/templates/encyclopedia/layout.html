@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> {% block title %}{% endblock %} </title>
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+  <link rel="stylesheet" href="{% static 'encyclopedia/styles.css' %}">
+</head>
+
+<body>
+  <nav class="nav-bar">
+    <img class="web-icon" src="{% static 'images/logo.png' %}">
+    <div class="content-left">
+      <h1>Wiki Entries</h1>
+    </div>
+    <div class="content-right">
+      {% block nav %}{% endblock %}
+    </div>
+  </nav>
+
+  {% block body %}{% endblock %}
+</body>
+
+<footer class="bottom-footer">
+  <div class="footer-content">
+    Aadhieawar Senthil Kumar
+  </div>
+</footer>
+
+</html>
