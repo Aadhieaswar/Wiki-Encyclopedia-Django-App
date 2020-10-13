@@ -80,12 +80,7 @@ def editEntry(request, entry):
     if request.method == 'POST':
         content = request.POST["new_content"]
         util.save_entry(entry, content)
-        context = {
-            "entry": entry,
-            "content": content,
-            "success": "Successfully Saved Changes",
-        }
-        return render(request, "encyclopedia/editor.html", context)
+        return redirect("encyclopedia:wiki", entry)
     textcontent = util.get_entry(entry)
     context = {
         "entry": entry,
