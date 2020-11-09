@@ -1,1 +1,1 @@
-# wiki-encyclopedia
+# Wiki Encyclopedia
