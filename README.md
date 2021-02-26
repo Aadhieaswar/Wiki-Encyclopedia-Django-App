@@ -1,1 +1,1 @@
-# Wiki Encyclopedia
+# Wiki Encyclopedia - Django Web App
